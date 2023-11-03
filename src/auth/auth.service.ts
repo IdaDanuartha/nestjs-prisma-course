@@ -36,7 +36,35 @@ export class AuthService {
     }
   }
 
-  signup() {
-    return { msg: "I have signed up" }
+  async signup(dto: AuthDto) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        email: dto.email
+      }
+    })
+
+    // if user does not exist throw exception
+    if (!user) {
+      throw new ForbiddenException(
+        'Credentials Incorrext'
+      )
+    }
+
+    // compare password
+    const pwMatches = await argon.verify(
+      user.hash,
+      dto.password
+    )
+
+    // if password incorrect throw exception
+    if(!pwMatches) {
+      throw new ForbiddenException(
+        'Credentials Incorrect'
+      )
+    }
+
+    // send back the user
+    delete user.hash
+    return user
   }
 }
