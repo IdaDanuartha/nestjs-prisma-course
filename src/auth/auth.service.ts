@@ -46,7 +46,7 @@ export class AuthService {
     // if user does not exist throw exception
     if (!user) {
       throw new ForbiddenException(
-        'Credentials Incorrext'
+        'Credentials Incorret'
       )
     }
 
