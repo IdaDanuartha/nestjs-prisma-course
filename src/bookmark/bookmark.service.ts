@@ -45,7 +45,7 @@ export class BookmarkService {
       where: {
         id: bookmarkId
       }
-    })
+    }) 
 
     // check if user owns the bookmark
     if(!bookmark || bookmark.userId !== userId) {
