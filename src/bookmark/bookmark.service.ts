@@ -54,7 +54,7 @@ export class BookmarkService {
 
     return this.prisma.bookmark.update({
       where: {
-        id: bookmarkId
+        id: bookmarkId 
       },
       data: {
         ...dto
